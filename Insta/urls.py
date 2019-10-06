@@ -14,10 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-
 from django.urls import include, path
+from Insta.views import HelloWorld
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('insta/', include('Insta.urls')),
+    path('', HelloWorld.as_view(), name='helloworld'),
 ]
