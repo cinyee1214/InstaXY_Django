@@ -15,9 +15,10 @@ from Insta.models import InstaUser, Post, UserConnection, Like, Comment
 class HelloWorld(TemplateView):
     template_name = 'test.html'
 
-class PostsView(ListView):
+class PostsView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'index.html'
+    login_url = "login"
 
     def get_queryset(self):
         current_user = self.request.user
@@ -26,15 +27,25 @@ class PostsView(ListView):
             following.add(conn.following)
         return Post.objects.filter(author__in=following)
     
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = 'post_detail.html'
 
-class PostCreateView(LoginRequiredMixin, CreateView):
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        liked = Like.objects.filter(post=self.kwargs.get('pk'), user=self.request.user).first()
+        if liked:
+            data['liked'] = 1
+        else:
+            data['liked'] = 0
+        return data
+
+class PostCreateView(CreateView):
     model = Post
     template_name = 'post_create.html'
     fields = '__all__'
-    login_url = 'login'
+    success_url = reverse_lazy("posts")
+
 
 class PostUpdateView(UpdateView):
     model = Post
