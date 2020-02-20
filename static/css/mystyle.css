@@ -1,0 +1,19 @@
+li {
+    color: rgb(255, 145, 0);
+    font-size: 25px;
+}
+
+li a {
+    color: rgb(0, 110, 255);
+    font-size: 20px;
+}
+
+.update-post {
+    color: rgb(162, 0, 255);
+    font-size: 20px;
+}
+
+.delete-post {
+    color: rgb(255, 0, 34);
+    font-size: 20px;
+}
