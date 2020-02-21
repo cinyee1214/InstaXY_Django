@@ -1,8 +1,7 @@
 from annoying.decorators import ajax_request
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse, reverse_lazy
-from .models import Post
+from django.urls import reverse_lazy
 
 from Insta.forms import CustomUserCreationForm
 from django.contrib.auth.forms import UserCreationForm
@@ -59,8 +58,9 @@ class PostDeleteView(DeleteView):
 
 class SignUp(CreateView):
     form_class = CustomUserCreationForm
-    template_name = 'signup.html'
     success_url = reverse_lazy("login")
+    template_name = 'signup.html'
+    
 
 class UserProfile(LoginRequiredMixin, DetailView):
     model = InstaUser

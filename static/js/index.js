@@ -125,7 +125,7 @@ function follow_user(success_cb, error_cb, type) {
   
     $.ajax({
       type: "POST",
-      url: 'insta/togglefollow',
+      url: '/togglefollow',
       data: {
         follow_user_pk: follow_user_pk,
         type: type
